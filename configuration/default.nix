@@ -1,10 +1,12 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ./desktop.nix
     ./disko.nix
     ./hardware.nix
     ./localization.nix
     ./network.nix
+    ./nixos.nix
     ./user.nix
   ];
 

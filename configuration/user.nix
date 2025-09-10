@@ -59,5 +59,4 @@
       # "root" is allowed to do anything.
       permit nopass keepenv root as root
   '';
-  security.polkit.enable = true;
 }
