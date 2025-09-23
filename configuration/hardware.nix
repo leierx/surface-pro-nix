@@ -35,14 +35,14 @@
   # if it flickers
   # boot.kernelParams = [ "i915.enable_psr=0" ];
 
-  hardware = {
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver # Preferred on modern Intel
       intel-vaapi-driver # (kept for compatibility)
       intel-compute-runtime # OpenCL
-      (vpl-gpu-rt or onevpl-intel-gpu)
+      (pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu)
     ];
     extraPackages32 = [
       pkgs.driversi686Linux.intel-vaapi-driver
