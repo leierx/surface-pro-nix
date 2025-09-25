@@ -16,6 +16,8 @@
           }
           flakeInputs.home-manager.nixosModules.home-manager
           flakeInputs.disko.nixosModules.disko
+          flakeInputs.nixos-hardware.nixosModules.microsoft-surface-common
+          flakeInputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
         ];
       };
     };
@@ -31,6 +33,8 @@
     # Disko
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    # nixos-hardware
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 }
 

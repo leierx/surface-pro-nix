@@ -1,52 +1,23 @@
-{ pkgs, ... }:
 {
-  # CPU
-  hardware.cpu.intel.updateMicrocode = true;
-  powerManagement.cpuFreqGovernor = "schedutil";
-
-  # Battery
-  services.power-profiles-daemon.enable = true;
-
   # ZRAM to make oom killer happy
   zramSwap.enable = true;
   zramSwap.memoryPercent = 25;
 
-  # Firmware
-  hardware.enableRedistributableFirmware = true;
-  services.fwupd.enable = true; # firmware updates when supported
-
-  # FStrim for the nvme
-  services.fstrim.enable = true;
-
-  # Touch/pen
-  services.iptsd.enable = true;
-
-  # auto-rotation
-  hardware.sensor.iio.enable = true;
-
-  # Thermal tuning
-  services.thermald = {
+  # touchscreen
+  services.iptsd = {
     enable = true;
-    configFile = ./assets/thermal-conf.xml;
+    config = {
+      Config = {
+        BlockOnPalm = true;
+        TouchThreshold = 20;
+        StabilityThreshold = 0.1;
+      };
+    };
   };
 
-  # Integrated graphics
-  boot.initrd.kernelModules = [ "i915" ];
-  # if it flickers
-  # boot.kernelParams = [ "i915.enable_psr=0" ];
+  # WORKAROUND: Volume Buttons
+  # boot.kernelModules = ["pinctrl_sunrisepoint"];
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # Preferred on modern Intel
-      intel-vaapi-driver # (kept for compatibility)
-      intel-compute-runtime # OpenCL
-      (pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu)
-    ];
-    extraPackages32 = [
-      pkgs.driversi686Linux.intel-vaapi-driver
-      pkgs.driversi686Linux.intel-media-driver
-    ];
-  };
+  # WORKAROUND: Audio and Camera
+  # boot.blacklistedKernelModules = [ "ipu3_imgu" ];
 }
