@@ -50,6 +50,9 @@
   programs.neovim = { enable = true; viAlias = true; vimAlias = true; defaultEditor = true; };
   programs.starship.enable = true;
 
+  # git
+  programs.git.enable = true;
+
   # privilege escalation - doas
   security.doas.enable = true;
   security.sudo.enable = false;
